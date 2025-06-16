@@ -34,9 +34,6 @@
             this.clock_zapuska = new System.Windows.Forms.Label();
             this.clock_dalit = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.shapka = new System.Windows.Forms.Panel();
-            this.minim = new System.Windows.Forms.Button();
-            this.exit = new System.Windows.Forms.Button();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -50,13 +47,13 @@
             this.proc_del_button = new System.Windows.Forms.Button();
             this.proc_del = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.shapka.SuspendLayout();
+            this.formStyle1 = new avtoplanirovshik_start_exit.FormStyle(this.components);
             this.SuspendLayout();
             // 
             // clock
             // 
             this.clock.AutoSize = true;
-            this.clock.Location = new System.Drawing.Point(119, 47);
+            this.clock.Location = new System.Drawing.Point(120, 24);
             this.clock.Name = "clock";
             this.clock.Size = new System.Drawing.Size(35, 13);
             this.clock.TabIndex = 0;
@@ -78,7 +75,7 @@
             // clock_dalit
             // 
             this.clock_dalit.AutoSize = true;
-            this.clock_dalit.Location = new System.Drawing.Point(13, 150);
+            this.clock_dalit.Location = new System.Drawing.Point(14, 127);
             this.clock_dalit.Name = "clock_dalit";
             this.clock_dalit.Size = new System.Drawing.Size(35, 13);
             this.clock_dalit.TabIndex = 2;
@@ -89,64 +86,23 @@
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
-            // shapka
-            // 
-            this.shapka.BackColor = System.Drawing.Color.Silver;
-            this.shapka.Controls.Add(this.minim);
-            this.shapka.Controls.Add(this.exit);
-            this.shapka.Location = new System.Drawing.Point(0, 0);
-            this.shapka.Name = "shapka";
-            this.shapka.Size = new System.Drawing.Size(362, 25);
-            this.shapka.TabIndex = 5;
-            // 
-            // minim
-            // 
-            this.minim.BackColor = System.Drawing.Color.Silver;
-            this.minim.FlatAppearance.BorderSize = 0;
-            this.minim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.minim.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.minim.Location = new System.Drawing.Point(312, 0);
-            this.minim.Name = "minim";
-            this.minim.Size = new System.Drawing.Size(25, 25);
-            this.minim.TabIndex = 1;
-            this.minim.Text = "_";
-            this.minim.UseVisualStyleBackColor = false;
-            this.minim.Click += new System.EventHandler(this.minim_Click);
-            this.minim.MouseEnter += new System.EventHandler(this.minim_MouseEnter);
-            this.minim.MouseLeave += new System.EventHandler(this.minim_MouseLeave);
-            // 
-            // exit
-            // 
-            this.exit.BackColor = System.Drawing.Color.Silver;
-            this.exit.FlatAppearance.BorderSize = 0;
-            this.exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exit.Location = new System.Drawing.Point(337, 0);
-            this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(25, 25);
-            this.exit.TabIndex = 0;
-            this.exit.Text = "X";
-            this.exit.UseVisualStyleBackColor = false;
-            this.exit.Click += new System.EventHandler(this.exit_Click);
-            this.exit.MouseEnter += new System.EventHandler(this.exit_MouseEnter);
-            this.exit.MouseLeave += new System.EventHandler(this.exit_MouseLeave);
-            // 
             // maskedTextBox1
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(250, 89);
+            this.maskedTextBox1.Location = new System.Drawing.Point(251, 93);
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
             this.maskedTextBox1.TabIndex = 6;
             // 
             // maskedTextBox2
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(250, 147);
+            this.maskedTextBox2.Location = new System.Drawing.Point(251, 139);
             this.maskedTextBox2.Name = "maskedTextBox2";
             this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
             this.maskedTextBox2.TabIndex = 7;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(16, 274);
+            this.button2.Location = new System.Drawing.Point(17, 251);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(493, 75);
             this.button2.TabIndex = 9;
@@ -155,7 +111,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(16, 204);
+            this.checkBox1.Location = new System.Drawing.Point(17, 181);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(94, 17);
             this.checkBox1.TabIndex = 10;
@@ -165,7 +121,7 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(16, 241);
+            this.checkBox5.Location = new System.Drawing.Point(17, 218);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(69, 17);
             this.checkBox5.TabIndex = 11;
@@ -175,7 +131,7 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(404, 204);
+            this.checkBox4.Location = new System.Drawing.Point(405, 181);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(68, 17);
             this.checkBox4.TabIndex = 12;
@@ -185,7 +141,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(280, 204);
+            this.checkBox3.Location = new System.Drawing.Point(281, 181);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(57, 17);
             this.checkBox3.TabIndex = 13;
@@ -195,7 +151,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(176, 204);
+            this.checkBox2.Location = new System.Drawing.Point(177, 181);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(68, 17);
             this.checkBox2.TabIndex = 14;
@@ -205,7 +161,7 @@
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(219, 241);
+            this.checkBox7.Location = new System.Drawing.Point(220, 218);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(93, 17);
             this.checkBox7.TabIndex = 15;
@@ -215,7 +171,7 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(116, 241);
+            this.checkBox6.Location = new System.Drawing.Point(117, 218);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(67, 17);
             this.checkBox6.TabIndex = 16;
@@ -224,7 +180,7 @@
             // 
             // proc_del_button
             // 
-            this.proc_del_button.Location = new System.Drawing.Point(157, 474);
+            this.proc_del_button.Location = new System.Drawing.Point(158, 451);
             this.proc_del_button.Name = "proc_del_button";
             this.proc_del_button.Size = new System.Drawing.Size(205, 52);
             this.proc_del_button.TabIndex = 17;
@@ -234,7 +190,7 @@
             // 
             // proc_del
             // 
-            this.proc_del.Location = new System.Drawing.Point(16, 427);
+            this.proc_del.Location = new System.Drawing.Point(17, 404);
             this.proc_del.Multiline = true;
             this.proc_del.Name = "proc_del";
             this.proc_del.Size = new System.Drawing.Size(409, 41);
@@ -244,11 +200,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 367);
+            this.label1.Location = new System.Drawing.Point(14, 344);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 19;
             this.label1.Text = "label1";
+            // 
+            // formStyle1
+            // 
+            this.formStyle1.Form = this;
+            this.formStyle1.Formstyle = avtoplanirovshik_start_exit.FormStyle.fStyle.None;
             // 
             // Form1
             // 
@@ -268,7 +229,6 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBox1);
-            this.Controls.Add(this.shapka);
             this.Controls.Add(this.clock_dalit);
             this.Controls.Add(this.clock_zapuska);
             this.Controls.Add(this.clock);
@@ -276,7 +236,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.shapka.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,9 +248,6 @@
         private System.Windows.Forms.Label clock_zapuska;
         private System.Windows.Forms.Label clock_dalit;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.Panel shapka;
-        private System.Windows.Forms.Button exit;
-        private System.Windows.Forms.Button minim;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox2;
         private System.Windows.Forms.Button button2;
@@ -305,6 +261,7 @@
         private System.Windows.Forms.Button proc_del_button;
         private System.Windows.Forms.TextBox proc_del;
         private System.Windows.Forms.Label label1;
+        private FormStyle formStyle1;
     }
 }
 

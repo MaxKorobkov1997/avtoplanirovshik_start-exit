@@ -49,6 +49,7 @@ namespace avtoplanirovshik_start_exit
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             button2.Text = "Выбор программы на \nавтовключения";
             button2.Font = new Font("Microsoft Sans Serif", 14);
             checkBox1.Font = new Font("Microsoft Sans Serif", 14);
@@ -69,11 +70,6 @@ namespace avtoplanirovshik_start_exit
             notifyIcon1.Icon = new Icon("icon.ico");
             // добавляем событие на изменение окна
             Resize += new EventHandler(Form1_Resize);
-            shapka.Size = new Size(Width, 25);
-            shapka.BackColor = Color.White;
-            shapka.MouseDown += new MouseEventHandler(shapka_MouseDown);
-            shapka.MouseMove += new MouseEventHandler(shapka_MouseMove);
-            shapka.MouseUp += new MouseEventHandler(shapka_MouseUp);
             clock.Font = new Font("Microsoft Sans Serif", 16);
             clock.Location = new Point(Width/2-clock.Right/2,50);
             clock_zapuska.Font = new Font("Microsoft Sans Serif", 14);
@@ -85,8 +81,6 @@ namespace avtoplanirovshik_start_exit
             button2.Click += button2_Click;
             label1.Font = new Font("Microsoft Sans Serif", 14);
             label1.Text = "Напишите процесс который нужно завершить\nпо истечении времени";
-            exit.Location = new Point(Width-25, 0);
-            minim.Location = new Point(Width-50, 0);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -126,7 +120,12 @@ namespace avtoplanirovshik_start_exit
                     while ((line = sr.ReadLine()) != null)
                     {
                         if (prov)
-                            Process.Start(line);
+                        {
+                            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                            processStartInfo.FileName = line;
+                            processStartInfo.UseShellExecute = false;
+                            Process.Start(processStartInfo);
+                        }
                         if (!prov)
                         {
                             var pr = Process.GetProcessesByName(line);
@@ -171,25 +170,6 @@ namespace avtoplanirovshik_start_exit
             WindowState = FormWindowState.Minimized;
         }
 
-        private void exit_MouseEnter(object sender, EventArgs e)
-        {
-            exit.BackColor = Color.Red;
-        }
-
-        private void exit_MouseLeave(object sender, EventArgs e)
-        {
-            exit.BackColor = Color.Silver;
-        }
-
-        private void minim_MouseEnter(object sender, EventArgs e)
-        {
-            minim.BackColor = Color.RoyalBlue;
-        }
-
-        private void minim_MouseLeave(object sender, EventArgs e)
-        {
-            minim.BackColor = Color.Silver;
-        }
 
         private void shapka_MouseDown(object sender, MouseEventArgs e)
         {
