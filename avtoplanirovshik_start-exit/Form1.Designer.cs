@@ -209,7 +209,7 @@
             // formStyle1
             // 
             this.formStyle1.Form = this;
-            this.formStyle1.Formstyle = avtoplanirovshik_start_exit.FormStyle.fStyle.None;
+            this.formStyle1.Formstyle = avtoplanirovshik_start_exit.FormStyle.fStyle.UserStyle;
             // 
             // Form1
             // 
@@ -234,7 +234,7 @@
             this.Controls.Add(this.clock);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Автозапуск";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

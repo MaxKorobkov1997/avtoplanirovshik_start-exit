@@ -21,7 +21,6 @@ namespace avtoplanirovshik_start_exit
         Point mouseStartPosishen;
 
         private bool minimizeHovered = false;
-        private Pen penMinimize = new Pen(Color.Gray, 1.55F);
         Rectangle rectangle_Min = new Rectangle();
 
         public Form Form { get; set; }
@@ -29,12 +28,12 @@ namespace avtoplanirovshik_start_exit
         private int HeaderHeigt = 25;
 
         Color color = Color.DimGray;
-        Pen pen = new Pen(Color.White) { Width = 1.55F};
+        Pen pen = new Pen(Color.White) { Width = 1.55F };
 
         public StringFormat sf = new StringFormat();
         public Font Font = new Font("Arial", 8.75f, FontStyle.Regular);
 
-        private Size icon_size = new Size(14,14);
+        private Size icon_size = new Size(14, 14);
         public fStyle Formstyle
         {
             get => formStyle;
@@ -126,17 +125,21 @@ namespace avtoplanirovshik_start_exit
                     }
                 }
                 if (rectangle_Min.Contains(e.Location))
+                {
                     if (minimizeHovered == false)
                     {
                         minimizeHovered = true;
                         Form.Invalidate();
                     }
-                else 
+                }
+                else
+                {
                     if (minimizeHovered == true)
                     {
                         minimizeHovered = false;
                         Form.Invalidate();
                     }
+                }
             }
         }
 
@@ -150,7 +153,7 @@ namespace avtoplanirovshik_start_exit
                 if (rectangle_Min.Contains(e.Location))
                     Form.WindowState = FormWindowState.Minimized;
             }
-            
+
         }
 
         private void Form_MouseDown(object sender, MouseEventArgs e)
@@ -168,7 +171,7 @@ namespace avtoplanirovshik_start_exit
             Form.Height = Form.Height + HeaderHeigt;
             foreach (Control control in Form.Controls)
             {
-                control.Location = new Point(control.Location.X, control.Location.Y+HeaderHeigt);
+                control.Location = new Point(control.Location.X, control.Location.Y + HeaderHeigt);
                 control.Refresh();
             }
         }
@@ -187,31 +190,32 @@ namespace avtoplanirovshik_start_exit
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             Rectangle rectangle_heder = new Rectangle(0, 0, Form.Width - 1, HeaderHeigt);
             Rectangle rectangle_boder = new Rectangle(0, 0, Form.Width - 1, Form.Height - 1);
-            Rectangle rectangle_text = new Rectangle(rectangle_heder.X+20, rectangle_heder.Y, 
+            Rectangle rectangle_text = new Rectangle(rectangle_heder.X + 20, rectangle_heder.Y,
                 rectangle_heder.Width, rectangle_heder.Height);
-            Rectangle rectangle_icon = new Rectangle(rectangle_heder.Height/2 - icon_size.Width/2,
-                rectangle_heder.Height/2 - icon_size.Height/2, icon_size.Width, icon_size.Height);
-            rectangle_clouse = new Rectangle(rectangle_heder.Width - rectangle_heder.Height, 
+            Rectangle rectangle_icon = new Rectangle(rectangle_heder.Height / 2 - icon_size.Width / 2,
+                rectangle_heder.Height / 2 - icon_size.Height / 2, icon_size.Width, icon_size.Height);
+            rectangle_clouse = new Rectangle(rectangle_heder.Width - rectangle_heder.Height,
                 rectangle_heder.Y, rectangle_heder.Height, rectangle_heder.Height);
             Rectangle rectangle_X = new Rectangle(rectangle_clouse.X + rectangle_clouse.Width / 2 - 5,
-                rectangle_clouse.Height / 2 - 5,10,10);
-            rectangle_Min = new Rectangle(rectangle_heder.Width - rectangle_heder.Height*2,
+                rectangle_clouse.Height / 2 - 5, 10, 10);
+            rectangle_Min = new Rectangle(rectangle_heder.Width - rectangle_heder.Height * 2,
                 rectangle_heder.Y, rectangle_heder.Height, rectangle_heder.Height);
             Rectangle rectangle_ = new Rectangle(rectangle_Min.X + rectangle_Min.Width / 2 - 5,
-                rectangle_clouse.Height / 2 - 5, 10, 10);
+                rectangle_Min.Height / 2 - 5, 10, 10);
 
 
             //Шапка
             graphics.DrawRectangle(new Pen(color), rectangle_heder);
             graphics.FillRectangle(new SolidBrush(color), rectangle_heder);
+
+            //Кнопка _
+            graphics.DrawRectangle(new Pen(minimizeHovered ? Color.Blue : color), rectangle_Min);
+            graphics.FillRectangle(new SolidBrush(minimizeHovered ? Color.Blue : color), rectangle_Min);
+            DrowCrossheir_(graphics, rectangle_, pen);
             //Кнопка X
             graphics.DrawRectangle(new Pen(clouseHowe ? Color.Red : color), rectangle_clouse);
             graphics.FillRectangle(new SolidBrush(clouseHowe ? Color.Red : color), rectangle_clouse);
             DrowCrossheir(graphics, rectangle_X, pen);
-            //Кнопка _
-            graphics.DrawRectangle(new Pen(minimizeHovered ? Color.White: color), rectangle_Min);
-            graphics.FillRectangle(new SolidBrush(minimizeHovered ? Color.White : color), rectangle_Min);
-            DrowCrossheir_(graphics, rectangle_, pen);
             //Иконка
             graphics.DrawImage(Form.Icon.ToBitmap(), rectangle_icon);
             //Обводка
