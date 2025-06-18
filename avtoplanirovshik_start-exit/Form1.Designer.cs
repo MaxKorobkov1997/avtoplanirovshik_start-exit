@@ -67,17 +67,20 @@
             // clock_zapuska
             // 
             this.clock_zapuska.AutoSize = true;
+            this.clock_zapuska.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.clock_zapuska.Location = new System.Drawing.Point(13, 96);
             this.clock_zapuska.Name = "clock_zapuska";
-            this.clock_zapuska.Size = new System.Drawing.Size(0, 13);
+            this.clock_zapuska.Size = new System.Drawing.Size(114, 24);
             this.clock_zapuska.TabIndex = 1;
+            this.clock_zapuska.Text = " nybv/ngfrde";
             // 
             // clock_dalit
             // 
             this.clock_dalit.AutoSize = true;
+            this.clock_dalit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.clock_dalit.Location = new System.Drawing.Point(14, 127);
             this.clock_dalit.Name = "clock_dalit";
-            this.clock_dalit.Size = new System.Drawing.Size(35, 13);
+            this.clock_dalit.Size = new System.Drawing.Size(60, 24);
             this.clock_dalit.TabIndex = 2;
             this.clock_dalit.Text = "label2";
             // 
@@ -88,14 +91,14 @@
             // 
             // maskedTextBox1
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(251, 93);
+            this.maskedTextBox1.Location = new System.Drawing.Point(251, 95);
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
             this.maskedTextBox1.TabIndex = 6;
             // 
             // maskedTextBox2
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(251, 139);
+            this.maskedTextBox2.Location = new System.Drawing.Point(251, 145);
             this.maskedTextBox2.Name = "maskedTextBox2";
             this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
             this.maskedTextBox2.TabIndex = 7;
@@ -161,7 +164,7 @@
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(220, 218);
+            this.checkBox7.Location = new System.Drawing.Point(251, 218);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(93, 17);
             this.checkBox7.TabIndex = 15;
@@ -171,7 +174,7 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(117, 218);
+            this.checkBox6.Location = new System.Drawing.Point(139, 218);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(67, 17);
             this.checkBox6.TabIndex = 16;
@@ -190,10 +193,10 @@
             // 
             // proc_del
             // 
-            this.proc_del.Location = new System.Drawing.Point(17, 404);
+            this.proc_del.Location = new System.Drawing.Point(18, 404);
             this.proc_del.Multiline = true;
             this.proc_del.Name = "proc_del";
-            this.proc_del.Size = new System.Drawing.Size(409, 41);
+            this.proc_del.Size = new System.Drawing.Size(492, 41);
             this.proc_del.TabIndex = 18;
             this.proc_del.TextChanged += new System.EventHandler(this.proc_del_TextChanged);
             // 
@@ -208,8 +211,10 @@
             // 
             // formStyle1
             // 
+            this.formStyle1.color = System.Drawing.Color.Black;
+            this.formStyle1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.formStyle1.Form = this;
-            this.formStyle1.Formstyle = avtoplanirovshik_start_exit.FormStyle.fStyle.UserStyle;
+            this.formStyle1.Formstyle = avtoplanirovshik_start_exit.FormStyle.fStyle.SimpleDark;
             // 
             // Form1
             // 

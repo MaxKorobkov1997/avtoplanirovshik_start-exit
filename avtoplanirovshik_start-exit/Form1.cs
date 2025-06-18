@@ -49,7 +49,6 @@ namespace avtoplanirovshik_start_exit
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             button2.Text = "Выбор программы на \nавтовключения";
             button2.Font = new Font("Microsoft Sans Serif", 14);
             checkBox1.Font = new Font("Microsoft Sans Serif", 14);
@@ -70,7 +69,7 @@ namespace avtoplanirovshik_start_exit
             notifyIcon1.Icon = new Icon("icon.ico");
             // добавляем событие на изменение окна
             Resize += new EventHandler(Form1_Resize);
-            clock.Font = new Font("Microsoft Sans Serif", 16);
+            clock.Font = new Font("Microsoft Sans Serif", 18);
             clock.Location = new Point(Width/2-clock.Right/2,50);
             clock_zapuska.Font = new Font("Microsoft Sans Serif", 14);
             clock_dalit.Font = new Font("Microsoft Sans Serif", 14);
@@ -81,6 +80,8 @@ namespace avtoplanirovshik_start_exit
             button2.Click += button2_Click;
             label1.Font = new Font("Microsoft Sans Serif", 14);
             label1.Text = "Напишите процесс который нужно завершить\nпо истечении времени";
+            maskedTextBox1.Location = new Point(251,clock_zapuska.Location.Y);
+            maskedTextBox2.Location = new Point(251, clock_dalit.Location.Y + clock_dalit.Height - maskedTextBox2.Height);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -97,7 +98,7 @@ namespace avtoplanirovshik_start_exit
             //Console.WriteLine($"o: {now:o}"); //o: 2022-01-06T14:45:20.3942344+04:00
             //Console.WriteLine($"R: {now:R}"); //R: Thu, 06 Jan 2022 14:45:20 GMT
             //Console.WriteLine($"s: {now:s}"); //s: 2022-01-06T14:45:20
-            clock.Text = $"T: {now:T} {now:dddd}"; //T: 14:45:20
+            clock.Text = $"{now:T} {now:dddd}"; //T: 14:45:20
             //Console.WriteLine($"t: {now:t}"); //t: 14:45
             //Console.WriteLine($"U: {now:U}"); //U: 6 января 2022 г. 10:45:20
             //Console.WriteLine($"u: {now:u}"); //u: 2022-01-06 14:45:20

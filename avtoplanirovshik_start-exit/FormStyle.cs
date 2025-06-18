@@ -24,14 +24,18 @@ namespace avtoplanirovshik_start_exit
         Rectangle rectangle_Min = new Rectangle();
 
         public Form Form { get; set; }
-        private fStyle formStyle = fStyle.None;
+        private fStyle formStyle;
         private int HeaderHeigt = 25;
 
-        Color color = Color.DimGray;
+        [Description("Цвет шапки (заголовка)")]
+        public Color color { get; set; } = Color.DimGray;
+
         Pen pen = new Pen(Color.White) { Width = 1.55F };
 
         public StringFormat sf = new StringFormat();
-        public Font Font = new Font("Arial", 8.75f, FontStyle.Regular);
+
+        [Description("Шрифт текста шапки (заголовка)")]
+        public Font Font { get; set; } = new Font("Arial", 8.75f, FontStyle.Regular);
 
         private Size icon_size = new Size(14, 14);
         public fStyle Formstyle
@@ -46,12 +50,7 @@ namespace avtoplanirovshik_start_exit
 
         public enum fStyle // Набор стилей
         {
-            None,
-
-            UserStyle,
-
-            SimpleDark,
-            TelegramStyle
+            SimpleDark
         }
 
         public FormStyle()
