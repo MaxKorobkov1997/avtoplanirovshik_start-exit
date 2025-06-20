@@ -47,15 +47,27 @@
             this.proc_del_button = new System.Windows.Forms.Button();
             this.proc_del = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.formStyle1 = new avtoplanirovshik_start_exit.FormStyle(this.components);
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // clock
             // 
             this.clock.AutoSize = true;
-            this.clock.Location = new System.Drawing.Point(120, 24);
+            this.clock.Location = new System.Drawing.Point(210, 13);
             this.clock.Name = "clock";
-            this.clock.Size = new System.Drawing.Size(35, 13);
+            this.clock.Size = new System.Drawing.Size(44, 16);
             this.clock.TabIndex = 0;
             this.clock.Text = "label1";
             // 
@@ -68,7 +80,7 @@
             // 
             this.clock_zapuska.AutoSize = true;
             this.clock_zapuska.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.clock_zapuska.Location = new System.Drawing.Point(13, 96);
+            this.clock_zapuska.Location = new System.Drawing.Point(54, 107);
             this.clock_zapuska.Name = "clock_zapuska";
             this.clock_zapuska.Size = new System.Drawing.Size(114, 24);
             this.clock_zapuska.TabIndex = 1;
@@ -78,7 +90,7 @@
             // 
             this.clock_dalit.AutoSize = true;
             this.clock_dalit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.clock_dalit.Location = new System.Drawing.Point(14, 127);
+            this.clock_dalit.Location = new System.Drawing.Point(52, 50);
             this.clock_dalit.Name = "clock_dalit";
             this.clock_dalit.Size = new System.Drawing.Size(60, 24);
             this.clock_dalit.TabIndex = 2;
@@ -91,21 +103,21 @@
             // 
             // maskedTextBox1
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(251, 95);
+            this.maskedTextBox1.Location = new System.Drawing.Point(238, 110);
             this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
+            this.maskedTextBox1.Size = new System.Drawing.Size(100, 22);
             this.maskedTextBox1.TabIndex = 6;
             // 
             // maskedTextBox2
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(251, 145);
+            this.maskedTextBox2.Location = new System.Drawing.Point(409, 145);
             this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
+            this.maskedTextBox2.Size = new System.Drawing.Size(100, 22);
             this.maskedTextBox2.TabIndex = 7;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(17, 251);
+            this.button2.Location = new System.Drawing.Point(52, 254);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(493, 75);
             this.button2.TabIndex = 9;
@@ -114,9 +126,9 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(17, 181);
+            this.checkBox1.Location = new System.Drawing.Point(53, 186);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(94, 17);
+            this.checkBox1.Size = new System.Drawing.Size(114, 20);
             this.checkBox1.TabIndex = 10;
             this.checkBox1.Text = "Понедельник";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -124,9 +136,9 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(17, 218);
+            this.checkBox5.Location = new System.Drawing.Point(53, 223);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(69, 17);
+            this.checkBox5.Size = new System.Drawing.Size(82, 20);
             this.checkBox5.TabIndex = 11;
             this.checkBox5.Text = "Пятница";
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -134,9 +146,9 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(405, 181);
+            this.checkBox4.Location = new System.Drawing.Point(441, 186);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(68, 17);
+            this.checkBox4.Size = new System.Drawing.Size(80, 20);
             this.checkBox4.TabIndex = 12;
             this.checkBox4.Text = "Четверг";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -144,9 +156,9 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(281, 181);
+            this.checkBox3.Location = new System.Drawing.Point(317, 186);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(57, 17);
+            this.checkBox3.Size = new System.Drawing.Size(67, 20);
             this.checkBox3.TabIndex = 13;
             this.checkBox3.Text = "Среда";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -154,9 +166,9 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(177, 181);
+            this.checkBox2.Location = new System.Drawing.Point(213, 186);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(68, 17);
+            this.checkBox2.Size = new System.Drawing.Size(81, 20);
             this.checkBox2.TabIndex = 14;
             this.checkBox2.Text = "Вторник";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -164,9 +176,9 @@
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(251, 218);
+            this.checkBox7.Location = new System.Drawing.Point(287, 223);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(93, 17);
+            this.checkBox7.Size = new System.Drawing.Size(111, 20);
             this.checkBox7.TabIndex = 15;
             this.checkBox7.Text = "Воскресенье";
             this.checkBox7.UseVisualStyleBackColor = true;
@@ -174,16 +186,16 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(139, 218);
+            this.checkBox6.Location = new System.Drawing.Point(175, 223);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(67, 17);
+            this.checkBox6.Size = new System.Drawing.Size(82, 20);
             this.checkBox6.TabIndex = 16;
             this.checkBox6.Text = "Суббота";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
             // proc_del_button
             // 
-            this.proc_del_button.Location = new System.Drawing.Point(158, 451);
+            this.proc_del_button.Location = new System.Drawing.Point(193, 454);
             this.proc_del_button.Name = "proc_del_button";
             this.proc_del_button.Size = new System.Drawing.Size(205, 52);
             this.proc_del_button.TabIndex = 17;
@@ -193,56 +205,150 @@
             // 
             // proc_del
             // 
-            this.proc_del.Location = new System.Drawing.Point(18, 404);
+            this.proc_del.Location = new System.Drawing.Point(53, 407);
             this.proc_del.Multiline = true;
             this.proc_del.Name = "proc_del";
             this.proc_del.Size = new System.Drawing.Size(492, 41);
             this.proc_del.TabIndex = 18;
-            this.proc_del.TextChanged += new System.EventHandler(this.proc_del_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 344);
+            this.label1.Location = new System.Drawing.Point(49, 347);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(44, 16);
             this.label1.TabIndex = 19;
             this.label1.Text = "label1";
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tabControl1.Location = new System.Drawing.Point(2, 2);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(616, 541);
+            this.tabControl1.TabIndex = 20;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.clock_dalit);
+            this.tabPage1.Controls.Add(this.clock_zapuska);
+            this.tabPage1.Controls.Add(this.maskedTextBox1);
+            this.tabPage1.Controls.Add(this.clock);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.maskedTextBox2);
+            this.tabPage1.Controls.Add(this.proc_del);
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.proc_del_button);
+            this.tabPage1.Controls.Add(this.checkBox1);
+            this.tabPage1.Controls.Add(this.checkBox6);
+            this.tabPage1.Controls.Add(this.checkBox5);
+            this.tabPage1.Controls.Add(this.checkBox7);
+            this.tabPage1.Controls.Add(this.checkBox4);
+            this.tabPage1.Controls.Add(this.checkBox2);
+            this.tabPage1.Controls.Add(this.checkBox3);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(608, 512);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Главная";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.listBox1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(608, 515);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Удалиние_из_автозапуска";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(189, 476);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(198, 32);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Удалить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.HorizontalScrollbar = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(3, 6);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(599, 464);
+            this.listBox1.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.button3);
+            this.tabPage3.Controls.Add(this.listBox2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(608, 515);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Удалиние_из_автовыхода";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button3.Location = new System.Drawing.Point(188, 476);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(198, 32);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Удалить";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // listBox2
+            // 
+            this.listBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.HorizontalScrollbar = true;
+            this.listBox2.ItemHeight = 20;
+            this.listBox2.Location = new System.Drawing.Point(5, 6);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(599, 464);
+            this.listBox2.TabIndex = 2;
             // 
             // formStyle1
             // 
             this.formStyle1.color = System.Drawing.Color.Black;
             this.formStyle1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.formStyle1.Form = this;
-            this.formStyle1.Formstyle = avtoplanirovshik_start_exit.FormStyle.fStyle.SimpleDark;
+            this.formStyle1.Text_posishen = avtoplanirovshik_start_exit.FormStyle.fStyle.Center;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(523, 544);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.proc_del);
-            this.Controls.Add(this.proc_del_button);
-            this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.checkBox7);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.maskedTextBox2);
-            this.Controls.Add(this.maskedTextBox1);
-            this.Controls.Add(this.clock_dalit);
-            this.Controls.Add(this.clock_zapuska);
-            this.Controls.Add(this.clock);
+            this.ClientSize = new System.Drawing.Size(621, 544);
+            this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Text = "Автозапуск";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -267,6 +373,14 @@
         private System.Windows.Forms.TextBox proc_del;
         private System.Windows.Forms.Label label1;
         private FormStyle formStyle1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }
 

@@ -24,7 +24,7 @@ namespace avtoplanirovshik_start_exit
         Rectangle rectangle_Min = new Rectangle();
 
         public Form Form { get; set; }
-        private fStyle formStyle;
+        private fStyle text_posishen;
         private int HeaderHeigt = 25;
 
         [Description("Цвет шапки (заголовка)")]
@@ -37,20 +37,21 @@ namespace avtoplanirovshik_start_exit
         [Description("Шрифт текста шапки (заголовка)")]
         public Font Font { get; set; } = new Font("Arial", 8.75f, FontStyle.Regular);
 
-        private Size icon_size = new Size(14, 14);
-        public fStyle Formstyle
+        private Size icon_size = new Size(14, 20);
+        public fStyle Text_posishen
         {
-            get => formStyle;
+            get => text_posishen;
             set
             {
-                formStyle = value;
+                text_posishen = value;
                 sign();
             }
         }
 
-        public enum fStyle // Набор стилей
+        public enum fStyle // Позиция нидписи
         {
-            SimpleDark
+            Near,
+            Center,
         }
 
         public FormStyle()
@@ -75,12 +76,15 @@ namespace avtoplanirovshik_start_exit
 
         private void Apply()
         {
-            sf.Alignment = StringAlignment.Near;
+            if (Text_posishen == fStyle.Near)
+                sf.Alignment = StringAlignment.Near;
+            else
+                sf.Alignment = StringAlignment.Center;
             sf.LineAlignment = StringAlignment.Center;
             Form.FormBorderStyle = FormBorderStyle.None;
-            Size minimumSize = new Size(100, 50);
-            if (Form.MinimumSize.Width < minimumSize.Width || Form.MinimumSize.Height < minimumSize.Height)
-                Form.MinimumSize = minimumSize;
+            //Size minimumSize = new Size(100, 50);
+            //if (Form.MinimumSize.Width < minimumSize.Width || Form.MinimumSize.Height < minimumSize.Height)
+            //    Form.MinimumSize = minimumSize;
             Ofset_controls();
             SetDoubleBuffered(Form);
             Form.Paint += Form_Paint;
@@ -179,6 +183,7 @@ namespace avtoplanirovshik_start_exit
         {
             Apply();
         }
+
         private void Form_Paint(object sender, PaintEventArgs e)
         {
             DrawStyle(e.Graphics);
@@ -187,40 +192,43 @@ namespace avtoplanirovshik_start_exit
         private void DrawStyle(Graphics graphics)
         {
             graphics.SmoothingMode = SmoothingMode.HighQuality;
+
+            //Шапка
             Rectangle rectangle_heder = new Rectangle(0, 0, Form.Width - 1, HeaderHeigt);
+            graphics.DrawRectangle(new Pen(color), rectangle_heder);
+            graphics.FillRectangle(new SolidBrush(color), rectangle_heder);
+
+            //Обводка
             Rectangle rectangle_boder = new Rectangle(0, 0, Form.Width - 1, Form.Height - 1);
+            graphics.DrawRectangle(new Pen(Color.Black), rectangle_boder);
+
+            //Текст заголовка
             Rectangle rectangle_text = new Rectangle(rectangle_heder.X + 20, rectangle_heder.Y,
-                rectangle_heder.Width, rectangle_heder.Height);
+                rectangle_heder.Width - 50, rectangle_heder.Height);
+            graphics.DrawString(Form.Text, Font, new SolidBrush(Color.White), rectangle_text, sf);
+
+            //Иконка
             Rectangle rectangle_icon = new Rectangle(rectangle_heder.Height / 2 - icon_size.Width / 2,
                 rectangle_heder.Height / 2 - icon_size.Height / 2, icon_size.Width, icon_size.Height);
+            graphics.DrawImage(Form.Icon.ToBitmap(), rectangle_icon);
+
+            //Кнопка X
             rectangle_clouse = new Rectangle(rectangle_heder.Width - rectangle_heder.Height,
                 rectangle_heder.Y, rectangle_heder.Height, rectangle_heder.Height);
             Rectangle rectangle_X = new Rectangle(rectangle_clouse.X + rectangle_clouse.Width / 2 - 5,
                 rectangle_clouse.Height / 2 - 5, 10, 10);
+            graphics.DrawRectangle(new Pen(clouseHowe ? Color.Red : color), rectangle_clouse);
+            graphics.FillRectangle(new SolidBrush(clouseHowe ? Color.Red : color), rectangle_clouse);
+            DrowCrossheir(graphics, rectangle_X, pen);
+
+            //Кнопка _
             rectangle_Min = new Rectangle(rectangle_heder.Width - rectangle_heder.Height * 2,
                 rectangle_heder.Y, rectangle_heder.Height, rectangle_heder.Height);
             Rectangle rectangle_ = new Rectangle(rectangle_Min.X + rectangle_Min.Width / 2 - 5,
                 rectangle_Min.Height / 2 - 5, 10, 10);
-
-
-            //Шапка
-            graphics.DrawRectangle(new Pen(color), rectangle_heder);
-            graphics.FillRectangle(new SolidBrush(color), rectangle_heder);
-
-            //Кнопка _
             graphics.DrawRectangle(new Pen(minimizeHovered ? Color.Blue : color), rectangle_Min);
             graphics.FillRectangle(new SolidBrush(minimizeHovered ? Color.Blue : color), rectangle_Min);
             DrowCrossheir_(graphics, rectangle_, pen);
-            //Кнопка X
-            graphics.DrawRectangle(new Pen(clouseHowe ? Color.Red : color), rectangle_clouse);
-            graphics.FillRectangle(new SolidBrush(clouseHowe ? Color.Red : color), rectangle_clouse);
-            DrowCrossheir(graphics, rectangle_X, pen);
-            //Иконка
-            graphics.DrawImage(Form.Icon.ToBitmap(), rectangle_icon);
-            //Обводка
-            graphics.DrawRectangle(new Pen(Color.Black), rectangle_boder);
-            //Текст заголовка
-            graphics.DrawString(Form.Text, Font, new SolidBrush(Color.White), rectangle_text, sf);
         }
 
         private void DrowCrossheir(Graphics graphics, Rectangle rectangle, Pen p)

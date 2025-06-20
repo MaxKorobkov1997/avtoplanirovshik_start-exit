@@ -14,10 +14,6 @@ namespace avtoplanirovshik_start_exit
 {
     public partial class Form1 : Form
     {
-        bool drag = false;
-        Point start_point = new Point(0, 0);
-
-
         public Form1()
         {
             InitializeComponent();
@@ -70,7 +66,7 @@ namespace avtoplanirovshik_start_exit
             // добавляем событие на изменение окна
             Resize += new EventHandler(Form1_Resize);
             clock.Font = new Font("Microsoft Sans Serif", 18);
-            clock.Location = new Point(Width/2-clock.Right/2,50);
+            clock.Location = new Point(Width/2-clock.Right/2,20);
             clock_zapuska.Font = new Font("Microsoft Sans Serif", 14);
             clock_dalit.Font = new Font("Microsoft Sans Serif", 14);
             clock_zapuska.Text = "Время запуска\nприложения";
@@ -82,6 +78,19 @@ namespace avtoplanirovshik_start_exit
             label1.Text = "Напишите процесс который нужно завершить\nпо истечении времени";
             maskedTextBox1.Location = new Point(251,clock_zapuska.Location.Y);
             maskedTextBox2.Location = new Point(251, clock_dalit.Location.Y + clock_dalit.Height - maskedTextBox2.Height);
+            
+        }
+
+        private List<string> Chit(string str)
+        {
+            List<string> a = new List<string>();
+            using (StreamReader sr = new StreamReader(str, Encoding.GetEncoding("UTF-8")))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                    a.Add(line);
+            }
+            return a;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -161,37 +170,6 @@ namespace avtoplanirovshik_start_exit
                 return false;
         }
 
-        private void exit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void minim_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
-
-
-        private void shapka_MouseDown(object sender, MouseEventArgs e)
-        {
-            drag = true;
-            start_point = new Point(e.X, e.Y);
-        }
-
-        private void shapka_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (drag)
-            {
-                Point p = PointToScreen(e.Location);
-                Location = new Point(p.X - start_point.X, p.Y - start_point.Y);
-            }
-        }
-
-        private void shapka_MouseUp(object sender, MouseEventArgs e)
-        {
-            drag = false;
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -212,9 +190,48 @@ namespace avtoplanirovshik_start_exit
             proc_del.Text = "";
         }
 
-        private void proc_del_TextChanged(object sender, EventArgs e)
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            rem();
+        }
 
+        private void rem()
+        {
+            int select_Index = tabControl1.SelectedIndex;
+            switch (select_Index)
+            {
+                case 1:
+                    listBox1.Items.Clear();
+                    listBox1.Items.AddRange(Chit("avtosapusk.txt").ToArray());
+                    break;
+                case 2:
+                    listBox2.Items.Clear();
+                    listBox2.Items.AddRange(Chit("exit.txt").ToArray());
+                    break;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            del("avtosapusk.txt", listBox1.SelectedItem.ToString());
+        }
+
+        private void del(string file, string a)
+        {
+            // Читаем все строки из файла
+            List<string> lines = File.ReadAllLines(file).ToList();
+
+            // Удаляем строку, если она есть
+            lines.RemoveAll(line => line.Contains(a));
+
+            // Записываем оставшиеся строки обратно в файл
+            File.WriteAllLines(file, lines);
+            rem();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            del("exit.txt", listBox2.SelectedItem.ToString());
         }
     }
 }
