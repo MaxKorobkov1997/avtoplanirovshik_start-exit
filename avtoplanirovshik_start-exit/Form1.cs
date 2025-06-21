@@ -66,7 +66,7 @@ namespace avtoplanirovshik_start_exit
             // добавляем событие на изменение окна
             Resize += new EventHandler(Form1_Resize);
             clock.Font = new Font("Microsoft Sans Serif", 18);
-            clock.Location = new Point(Width/2-clock.Right/2,20);
+            clock.Location = new Point(tabControl1.Width/2-clock.Right/2,20);
             clock_zapuska.Font = new Font("Microsoft Sans Serif", 14);
             clock_dalit.Font = new Font("Microsoft Sans Serif", 14);
             clock_zapuska.Text = "Время запуска\nприложения";
@@ -232,6 +232,18 @@ namespace avtoplanirovshik_start_exit
         private void button3_Click(object sender, EventArgs e)
         {
             del("exit.txt", listBox2.SelectedItem.ToString());
+        }
+
+        private void maskedTextBox1_Click(object sender, EventArgs e)
+        {
+            maskedTextBox1.Select(maskedTextBox1.Text.Replace(" :", "").Replace(" ", "").Length, 0);
+            maskedTextBox1.Focus();
+        }
+
+        private void maskedTextBox2_Click(object sender, EventArgs e)
+        {
+            maskedTextBox2.Select(maskedTextBox2.Text.Replace(" :", "").Replace(" ", "").Length, 0);
+            maskedTextBox2.Focus();
         }
     }
 }
