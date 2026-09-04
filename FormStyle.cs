@@ -237,5 +237,7 @@ namespace avtoplanirovshik_start_exit
 
             prop?.SetValue(c, true, null);
         }
+        
+
     }
 }

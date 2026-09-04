@@ -400,6 +400,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.AppWorkspace;
             ClientSize = new Size(723, 628);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.None;
