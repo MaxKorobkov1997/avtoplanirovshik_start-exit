@@ -33,6 +33,7 @@ namespace avtoplanirovshik_start_exit
         {
             _form = form ?? throw new ArgumentNullException(nameof(form));
             _mainContainer = mainContainer;
+            _form.Height += _headerHeight;
             Initialize();
         }
 
@@ -59,20 +60,36 @@ namespace avtoplanirovshik_start_exit
         {
             if (_mainContainer == null) return;
 
+            // 1. Снимаем Dock, чтобы управлять позицией вручную
             _mainContainer.Dock = DockStyle.None;
+
+            // 2. Сдвигаем контейнер ВНИЗ на высоту шапки
             _mainContainer.Location = new Point(0, _headerHeight);
 
-            // Отнимаем 1 пиксель, чтобы избежать скроллбаров
+            // 3. ГЛАВНЫЙ МОМЕНТ:
+            // Вычисляем высоту контейнера как: (Вся высота формы) - (Высота шапки)
+            // Мы НЕ вычитаем лишний пиксель (-1), если у формы нет рамок (FormBorderStyle.None).
+            // Если скроллбар все равно появляется, значит, у самого _mainContainer (например, TabControl)
+            // есть внутренние отступы (Padding).
+
+            int availableHeight = _form.ClientSize.Height - _headerHeight;
+
             _mainContainer.Size = new Size(
                 _form.ClientSize.Width,
-                _form.ClientSize.Height - _headerHeight - 1
+                availableHeight
             );
 
+            // 4. Закрепляем, чтобы при растягивании формы контейнер тянулся вместе с ней
             _mainContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom |
                                     AnchorStyles.Left | AnchorStyles.Right;
 
+            // 5. Обновляем координаты кнопок (они зависят от ширины формы)
             UpdateButtonRects();
+
+            // 6. Принудительно перерисовываем форму, чтобы кнопки и шапка встали на места
+            _form.Invalidate();
         }
+
 
         private void OnResize(object? sender, EventArgs e)
         {

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             clock = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
             clock_zapuska = new Label();
@@ -52,13 +51,13 @@
             label1 = new Label();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            checkBoxAutostart = new CheckBox();
             tabPage2 = new TabPage();
             button1 = new Button();
             listBox1 = new ListBox();
             tabPage3 = new TabPage();
             button3 = new Button();
             listBox2 = new ListBox();
-            checkBoxAutostart = new CheckBox();
             contextMenuStrip1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -108,7 +107,6 @@
             // notifyIcon1
             // 
             notifyIcon1.ContextMenuStrip = contextMenuStrip1;
-            notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
             notifyIcon1.Text = "notifyIcon1";
             notifyIcon1.Visible = true;
             notifyIcon1.MouseClick += notifyIcon1_MouseClick;
@@ -317,6 +315,16 @@
             tabPage1.Text = "Главная";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // checkBoxAutostart
+            // 
+            checkBoxAutostart.AutoSize = true;
+            checkBoxAutostart.Location = new Point(16, 12);
+            checkBoxAutostart.Name = "checkBoxAutostart";
+            checkBoxAutostart.Size = new Size(131, 24);
+            checkBoxAutostart.TabIndex = 20;
+            checkBoxAutostart.Text = "Автозагрузка";
+            checkBoxAutostart.UseVisualStyleBackColor = true;
+            // 
             // tabPage2
             // 
             tabPage2.Controls.Add(button1);
@@ -388,24 +396,13 @@
             listBox2.Size = new Size(698, 524);
             listBox2.TabIndex = 2;
             // 
-            // checkBoxAutostart
-            // 
-            checkBoxAutostart.AutoSize = true;
-            checkBoxAutostart.Location = new Point(16, 12);
-            checkBoxAutostart.Name = "checkBoxAutostart";
-            checkBoxAutostart.Size = new Size(106, 24);
-            checkBoxAutostart.TabIndex = 20;
-            checkBoxAutostart.Text = "checkBox8";
-            checkBoxAutostart.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(724, 628);
+            ClientSize = new Size(723, 628);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.None;
-            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
             Name = "Form1";
             Text = "Автозапуск";
