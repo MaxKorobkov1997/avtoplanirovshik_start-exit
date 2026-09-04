@@ -2,240 +2,211 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace avtoplanirovshik_start_exit
 {
     public partial class FormStyle : Component
     {
-        bool clouseHowe = false;
-        Rectangle rectangle_clouse = new Rectangle();
+        private readonly Form _form;
+        private readonly int _headerHeight = 25;
 
-        bool MousePresed = false;
-        Point clickPosishen;
-        Point mouseStartPosishen;
+        private Control? _mainContainer;
 
-        private bool minimizeHovered = false;
-        Rectangle rectangle_Min = new Rectangle();
+        private Color _headerColor = Color.DimGray;
+        // Цвета для кнопок: обычный и при наведении
+        private readonly Color _btnNormalColor = Color.FromArgb(60, 60, 60);
+        private readonly Color _btnCloseHoverColor = Color.FromArgb(230, 50, 50); // Красный при наведении
+        private readonly Color _btnOtherHoverColor = Color.FromArgb(100, 100, 100); // Серый для свернуть
 
-        public Form Form { get; set; }
-        private fStyle text_posishen;
-        private int HeaderHeigt = 25;
+        private bool _closeHovered;
+        private bool _minimizeHovered;
 
-        [Description("Цвет шапки (заголовка)")]
-        public Color color { get; set; } = Color.DimGray;
+        private bool _isDragging;
+        private Point _dragStartPoint;
 
-        Pen pen = new Pen(Color.White) { Width = 1.55F };
+        private Rectangle _closeRect;
+        private Rectangle _minimizeRect;
 
-        public StringFormat sf = new StringFormat();
-
-        [Description("Шрифт текста шапки (заголовка)")]
-        public Font Font { get; set; } = new Font("Arial", 8.75f, FontStyle.Regular);
-
-        private Size icon_size = new Size(14, 20);
-        public fStyle Text_posishen
+        public FormStyle(Form form, Control? mainContainer = null)
         {
-            get => text_posishen;
-            set
+            _form = form ?? throw new ArgumentNullException(nameof(form));
+            _mainContainer = mainContainer;
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            _form.FormBorderStyle = FormBorderStyle.None;
+            _form.AllowTransparency = false; // Важно для полного закрашивания
+            _form.TransparencyKey = Color.Empty;
+
+            SetDoubleBuffered(_form);
+
+            _form.Paint += OnPaint;
+            _form.Resize += OnResize;
+
+            _form.MouseDown += OnMouseDown;
+            _form.MouseUp += OnMouseUp;
+            _form.MouseMove += OnMouseMove;
+            _form.MouseLeave += OnMouseLeave;
+
+            ApplyLayout();
+        }
+
+        private void ApplyLayout()
+        {
+            if (_mainContainer == null) return;
+
+            _mainContainer.Dock = DockStyle.None;
+            _mainContainer.Location = new Point(0, _headerHeight);
+
+            // Отнимаем 1 пиксель, чтобы избежать скроллбаров
+            _mainContainer.Size = new Size(
+                _form.ClientSize.Width,
+                _form.ClientSize.Height - _headerHeight - 1
+            );
+
+            _mainContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom |
+                                    AnchorStyles.Left | AnchorStyles.Right;
+
+            UpdateButtonRects();
+        }
+
+        private void OnResize(object? sender, EventArgs e)
+        {
+            ApplyLayout(); // Обновляем и контейнер, и кнопки
+        }
+
+        private void UpdateButtonRects()
+        {
+            int h = _headerHeight;
+            int w = _form.ClientSize.Width;
+
+            // Кнопки квадратные, прижаты к правому краю
+            _closeRect = new Rectangle(w - h, 0, h, h);
+            _minimizeRect = new Rectangle(w - 2 * h, 0, h, h);
+        }
+
+        private void OnMouseLeave(object? sender, EventArgs e)
+        {
+            bool changed = _closeHovered || _minimizeHovered;
+            _closeHovered = false;
+            _minimizeHovered = false;
+            if (changed)
+                _form.Invalidate();
+        }
+
+        private void OnMouseMove(object? sender, MouseEventArgs e)
+        {
+            if (_isDragging)
             {
-                text_posishen = value;
-                sign();
+                int dx = e.X - _dragStartPoint.X;
+                int dy = e.Y - _dragStartPoint.Y;
+                _form.Location = new Point(_form.Location.X + dx, _form.Location.Y + dy);
+                return;
+            }
+
+            bool closeWas = _closeHovered;
+            bool minimizeWas = _minimizeHovered;
+
+            _closeHovered = _closeRect.Contains(e.Location);
+            _minimizeHovered = _minimizeRect.Contains(e.Location);
+
+            if (closeWas != _closeHovered || minimizeWas != _minimizeHovered)
+                _form.Invalidate();
+        }
+
+        private void OnMouseDown(object? sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+                return;
+
+            if (_closeRect.Contains(e.Location))
+            {
+                _form.Close();
+                return;
+            }
+
+            if (_minimizeRect.Contains(e.Location))
+            {
+                _form.WindowState = FormWindowState.Minimized;
+                return;
+            }
+
+            // Если клик в пределах шапки (но не по кнопкам) - тащим форму
+            if (e.Y <= _headerHeight)
+            {
+                _isDragging = true;
+                _dragStartPoint = e.Location;
             }
         }
 
-        public enum fStyle // Позиция нидписи
+        private void OnMouseUp(object? sender, MouseEventArgs e)
         {
-            Near,
-            Center,
+            _isDragging = false;
         }
 
-        public FormStyle()
+        private void OnPaint(object? sender, PaintEventArgs e)
         {
-            InitializeComponent();
+            var g = e.Graphics;
+
+            // Настройки качества
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+            // 1. Рисуем шапку
+            // ClientSize.Width гарантирует, что мы рисуем ровно по рабочей области
+            // +2 к высоте перекрывает любые стыки пикселей
+            var headerRect = new Rectangle(0, 0, _form.ClientSize.Width, _headerHeight + 2);
+
+            using var headerBrush = new SolidBrush(_headerColor);
+            g.FillRectangle(headerBrush, headerRect);
+
+            // 2. Рисуем кнопку ЗАКРЫТЬ (X)
+            Color closeColor = _closeHovered ? _btnCloseHoverColor : _btnNormalColor;
+            using var closeBrush = new SolidBrush(closeColor);
+            g.FillRectangle(closeBrush, _closeRect);
+
+            // Рисуем крестик белым
+            DrawCross(g, _closeRect, Color.White, 2);
+
+            // 3. Рисуем кнопку СВЕРНУТЬ (-)
+            Color minColor = _minimizeHovered ? _btnOtherHoverColor : _btnNormalColor;
+            using var minBrush = new SolidBrush(minColor);
+            g.FillRectangle(minBrush, _minimizeRect);
+
+            // Рисуем минус белым
+            DrawMinus(g, _minimizeRect, Color.White, 2);
+
+            // 4. Рисуем заголовок (текст)
+            using var titleBrush = new SolidBrush(Color.White);
+            var font = new Font("Segoe UI", 10, FontStyle.Regular);
+
+            // Отступ справа должен быть больше суммы ширин кнопок, чтобы текст не наезжал
+            int rightPadding = _headerHeight * 3;
+            var titleRect = new Rectangle(10, 0, _form.ClientSize.Width - rightPadding, _headerHeight);
+
+            TextRenderer.DrawText(g, _form.Text, font, titleRect, Color.White, TextFormatFlags.VerticalCenter);
         }
 
-        public FormStyle(IContainer container)
+        // Вспомогательный метод для рисования крестика
+        private void DrawCross(Graphics g, Rectangle r, Color color, float thickness)
         {
-            container.Add(this);
-
-            InitializeComponent();
+            using var pen = new Pen(color, thickness) { StartCap = LineCap.Round, EndCap = LineCap.Round };
+            int pad = 4;
+            g.DrawLine(pen, r.X + pad, r.Y + pad, r.Right - pad, r.Bottom - pad);
+            g.DrawLine(pen, r.Right - pad, r.Y + pad, r.X + pad, r.Bottom - pad);
         }
 
-        private void sign()
+        // Вспомогательный метод для рисования минуса
+        private void DrawMinus(Graphics g, Rectangle r, Color color, float thickness)
         {
-            if (Form != null)
-            {
-                Form.Load += Form_Load;
-            }
-        }
-
-        private void Apply()
-        {
-            if (Text_posishen == fStyle.Near)
-                sf.Alignment = StringAlignment.Near;
-            else
-                sf.Alignment = StringAlignment.Center;
-            sf.LineAlignment = StringAlignment.Center;
-            Form.FormBorderStyle = FormBorderStyle.None;
-            //Size minimumSize = new Size(100, 50);
-            //if (Form.MinimumSize.Width < minimumSize.Width || Form.MinimumSize.Height < minimumSize.Height)
-            //    Form.MinimumSize = minimumSize;
-            Ofset_controls();
-            SetDoubleBuffered(Form);
-            Form.Paint += Form_Paint;
-            Form.MouseDown += Form_MouseDown;
-            Form.MouseUp += Form_MouseUp;
-            Form.MouseMove += Form_MouseMove;
-            Form.MouseLeave += Form_MouseLeave;
-        }
-
-        private void Form_MouseLeave(object sender, EventArgs e)
-        {
-            clouseHowe = false;
-            minimizeHovered = false;
-            Form.Invalidate();
-
-        }
-
-        private void Form_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (MousePresed)
-            {
-                Size frmOfset = new Size(Point.Subtract(Cursor.Position, new Size(clickPosishen)));
-                Form.Location = Point.Add(mouseStartPosishen, frmOfset);
-            }
-            else
-            {
-                if (rectangle_clouse.Contains(e.Location))
-                {
-                    if (clouseHowe == false)
-                    {
-                        clouseHowe = true;
-                        Form.Invalidate();
-                    }
-                }
-                else
-                {
-                    if (clouseHowe == true)
-                    {
-                        clouseHowe = false;
-                        Form.Invalidate();
-                    }
-                }
-                if (rectangle_Min.Contains(e.Location))
-                {
-                    if (minimizeHovered == false)
-                    {
-                        minimizeHovered = true;
-                        Form.Invalidate();
-                    }
-                }
-                else
-                {
-                    if (minimizeHovered == true)
-                    {
-                        minimizeHovered = false;
-                        Form.Invalidate();
-                    }
-                }
-            }
-        }
-
-        private void Form_MouseUp(object sender, MouseEventArgs e)
-        {
-            MousePresed = false;
-            if (e.Button == MouseButtons.Left)
-            {
-                if (rectangle_clouse.Contains(e.Location))
-                    Form.Close();
-                if (rectangle_Min.Contains(e.Location))
-                    Form.WindowState = FormWindowState.Minimized;
-            }
-
-        }
-
-        private void Form_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Location.Y <= HeaderHeigt)
-            {
-                MousePresed = true;
-                clickPosishen = Cursor.Position;
-                mouseStartPosishen = Form.Location;
-            }
-        }
-
-        private void Ofset_controls()
-        {
-            Form.Height = Form.Height + HeaderHeigt;
-            foreach (Control control in Form.Controls)
-            {
-                control.Location = new Point(control.Location.X, control.Location.Y + HeaderHeigt);
-                control.Refresh();
-            }
-        }
-
-        private void Form_Load(object sender, EventArgs e)
-        {
-            Apply();
-        }
-
-        private void Form_Paint(object sender, PaintEventArgs e)
-        {
-            DrawStyle(e.Graphics);
-        }
-
-        private void DrawStyle(Graphics graphics)
-        {
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-
-            //Шапка
-            Rectangle rectangle_heder = new Rectangle(0, 0, Form.Width - 1, HeaderHeigt);
-            graphics.DrawRectangle(new Pen(color), rectangle_heder);
-            graphics.FillRectangle(new SolidBrush(color), rectangle_heder);
-
-            //Обводка
-            Rectangle rectangle_boder = new Rectangle(0, 0, Form.Width - 1, Form.Height - 1);
-            graphics.DrawRectangle(new Pen(Color.Black), rectangle_boder);
-
-            //Текст заголовка
-            Rectangle rectangle_text = new Rectangle(rectangle_heder.X + 20, rectangle_heder.Y,
-                rectangle_heder.Width - 50, rectangle_heder.Height);
-            graphics.DrawString(Form.Text, Font, new SolidBrush(Color.White), rectangle_text, sf);
-
-            //Иконка
-            Rectangle rectangle_icon = new Rectangle(rectangle_heder.Height / 2 - icon_size.Width / 2,
-                rectangle_heder.Height / 2 - icon_size.Height / 2, icon_size.Width, icon_size.Height);
-            graphics.DrawImage(Form.Icon.ToBitmap(), rectangle_icon);
-
-            //Кнопка X
-            rectangle_clouse = new Rectangle(rectangle_heder.Width - rectangle_heder.Height,
-                rectangle_heder.Y, rectangle_heder.Height, rectangle_heder.Height);
-            Rectangle rectangle_X = new Rectangle(rectangle_clouse.X + rectangle_clouse.Width / 2 - 5,
-                rectangle_clouse.Height / 2 - 5, 10, 10);
-            graphics.DrawRectangle(new Pen(clouseHowe ? Color.Red : color), rectangle_clouse);
-            graphics.FillRectangle(new SolidBrush(clouseHowe ? Color.Red : color), rectangle_clouse);
-            DrowCrossheir(graphics, rectangle_X, pen);
-
-            //Кнопка _
-            rectangle_Min = new Rectangle(rectangle_heder.Width - rectangle_heder.Height * 2,
-                rectangle_heder.Y, rectangle_heder.Height, rectangle_heder.Height);
-            Rectangle rectangle_ = new Rectangle(rectangle_Min.X + rectangle_Min.Width / 2 - 5,
-                rectangle_Min.Height / 2 - 5, 10, 10);
-            graphics.DrawRectangle(new Pen(minimizeHovered ? Color.Blue : color), rectangle_Min);
-            graphics.FillRectangle(new SolidBrush(minimizeHovered ? Color.Blue : color), rectangle_Min);
-            DrowCrossheir_(graphics, rectangle_, pen);
-        }
-
-        private void DrowCrossheir(Graphics graphics, Rectangle rectangle, Pen p)
-        {
-            graphics.DrawLine(p, rectangle.X, rectangle.Y, rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height);
-            graphics.DrawLine(p, rectangle.X + rectangle.Width, rectangle.Y, rectangle.X, rectangle.Y + rectangle.Height);
-        }
-
-        private void DrowCrossheir_(Graphics graphics, Rectangle rectangle, Pen p)
-        {
-            graphics.DrawLine(p, rectangle.X, rectangle.Y + rectangle.Height, rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height);
-            //graphics.DrawLine(p, rectangle.X + rectangle.Width, rectangle.Y, rectangle.X, rectangle.Y + rectangle.Height);
+            using var pen = new Pen(color, thickness) { StartCap = LineCap.Round, EndCap = LineCap.Round };
+            int x = r.X + r.Width / 2 - 5;
+            int y = r.Y + r.Height / 2 - 1;
+            g.DrawLine(pen, x, y, x + 10, y);
         }
 
         public static void SetDoubleBuffered(Control c)
@@ -243,13 +214,11 @@ namespace avtoplanirovshik_start_exit
             if (SystemInformation.TerminalServerSession)
                 return;
 
-            System.Reflection.PropertyInfo pDoubleBuffered =
-                  typeof(Control).GetProperty(
-                        "DoubleBuffered",
-                        System.Reflection.BindingFlags.NonPublic |
-                        System.Reflection.BindingFlags.Instance);
+            var prop = typeof(Control).GetProperty(
+                "DoubleBuffered",
+                BindingFlags.NonPublic | BindingFlags.Instance);
 
-            pDoubleBuffered.SetValue(c, true, null);
+            prop?.SetValue(c, true, null);
         }
     }
 }

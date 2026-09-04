@@ -1,16 +1,16 @@
-﻿namespace avtoplanirovshik_start_exit
+﻿namespace avtoplanirovshik_start_exit.git
 {
     partial class Form1
     {
         /// <summary>
-        /// Обязательная переменная конструктора.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Освободить все используемые ресурсы.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,13 +20,12 @@
             base.Dispose(disposing);
         }
 
-        #region Код, автоматически созданный конструктором форм Windows
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
-
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
@@ -59,7 +58,6 @@
             tabPage3 = new TabPage();
             button3 = new Button();
             listBox2 = new ListBox();
-            formStyle1 = new FormStyle(components);
             checkBoxAutostart = new CheckBox();
             contextMenuStrip1.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -390,13 +388,6 @@
             listBox2.Size = new Size(698, 524);
             listBox2.TabIndex = 2;
             // 
-            // formStyle1
-            // 
-            formStyle1.color = Color.Black;
-            formStyle1.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            formStyle1.Form = this;
-            formStyle1.Text_posishen = FormStyle.fStyle.Center;
-            // 
             // checkBoxAutostart
             // 
             checkBoxAutostart.AutoSize = true;
@@ -465,4 +456,3 @@
         private CheckBox checkBoxAutostart;
     }
 }
-

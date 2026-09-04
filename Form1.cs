@@ -1,8 +1,14 @@
 ﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Text;
+using System.Windows.Forms;
 
-namespace avtoplanirovshik_start_exit
+namespace avtoplanirovshik_start_exit.git
 {
     public partial class Form1 : Form
     {
@@ -11,58 +17,55 @@ namespace avtoplanirovshik_start_exit
         string file_exit = path + @"\exit.txt";
 
         private string settingsPath;
+        private FormStyle _styler;
+        private const string RunKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+        private const string AppName = "avtoplanirovshik_start_exit";
 
-private const string RunKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
-    private const string AppName = "avtoplanirovshik_start_exit";
-
-    // Проверяет, есть ли запись в автозагрузке
-    private bool IsInStartup()
-    {
-        using (var key = Registry.CurrentUser.OpenSubKey(RunKey))
+        // Проверяет, есть ли запись в автозагрузке
+        private bool IsInStartup()
         {
-            return key?.GetValue(AppName) != null;
-        }
-    }
-
-    // Добавляет в автозагрузку
-    private void AddToStartup()
-    {
-        try
-        {
-            // Получаем путь к текущему exe
-            string path = System.Reflection.Assembly.GetEntryAssembly().Location;
-            using (var key = Registry.CurrentUser.CreateSubKey(RunKey))
+            using (var key = Registry.CurrentUser.OpenSubKey(RunKey))
             {
-                key.SetValue(AppName, $"\"{path}\"");
+                return key?.GetValue(AppName) != null;
             }
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show("Не удалось добавить в автозагрузку: " + ex.Message);
-        }
-    }
 
-    // Удаляет из автозагрузки
-    private void RemoveFromStartup()
-    {
-        try
+        // Добавляет в автозагрузку
+        private void AddToStartup()
         {
-            using (var key = Registry.CurrentUser.OpenSubKey(RunKey, true))
+            try
             {
-                if (key != null)
-                    key.DeleteValue(AppName, false);
+                // Получаем путь к текущему exe
+                string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+                using (var key = Registry.CurrentUser.CreateSubKey(RunKey))
+                {
+                    key.SetValue(AppName, $"\"{path}\"");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не удалось добавить в автозагрузку: " + ex.Message);
             }
         }
-        catch { /* Игнорируем, если уже нет */ }
-    }
 
-
-    public Form1()
+        // Удаляет из автозагрузки
+        private void RemoveFromStartup()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(RunKey, true))
+                {
+                    if (key != null)
+                        key.DeleteValue(AppName, false);
+                }
+            }
+            catch { /* Игнорируем, если уже нет */ }
+        }
+        public Form1()
         {
             InitializeComponent();
-            FormClosing += (s, e) => SaveSettings();
+            _styler = new FormStyle(this, tabControl1);
         }
-
         private void Form1_Resize(object sender, EventArgs e)
         {
             // проверяем наше окно, и если оно было свернуто, делаем событие        
