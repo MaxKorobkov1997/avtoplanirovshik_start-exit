@@ -16,7 +16,7 @@ namespace avtoplanirovshik_start_exit
         // Цвета для кнопок: обычный и при наведении
         private readonly Color _btnNormalColor = Color.FromArgb(60, 60, 60);
         private readonly Color _btnCloseHoverColor = Color.FromArgb(230, 50, 50); // Красный при наведении
-        private readonly Color _btnOtherHoverColor = Color.FromArgb(100, 100, 100); // Серый для свернуть
+        private readonly Color _btnOtherHoverColor = Color.Blue; // Серый для свернуть
 
         private bool _closeHovered;
         private bool _minimizeHovered;
