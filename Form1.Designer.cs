@@ -440,7 +440,6 @@
         private System.Windows.Forms.Button proc_del_button;
         private System.Windows.Forms.TextBox proc_del;
         private System.Windows.Forms.Label label1;
-        private FormStyle formStyle1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

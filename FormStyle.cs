@@ -12,8 +12,6 @@ namespace avtoplanirovshik_start_exit
         private readonly Form _form;
         private readonly int _headerHeight = 25;
 
-        private Control? _mainContainer;
-
         private Color _headerColor = Color.DimGray;
         // Цвета для кнопок: обычный и при наведении
         private readonly Color _btnNormalColor = Color.FromArgb(60, 60, 60);
@@ -29,11 +27,19 @@ namespace avtoplanirovshik_start_exit
         private Rectangle _closeRect;
         private Rectangle _minimizeRect;
 
-        public FormStyle(Form form, Control? mainContainer = null)
+        public FormStyle(Form form)
         {
             _form = form ?? throw new ArgumentNullException(nameof(form));
-            _mainContainer = mainContainer;
+            //_mainContainer = mainContainer;
             _form.Height += _headerHeight;
+            foreach (Control control in _form.Controls)
+            {
+                // 1. Снимаем Dock, чтобы управлять позицией вручную
+                control.Dock = DockStyle.None;
+
+                // 2. Сдвигаем контейнер ВНИЗ на высоту шапки
+                control.Location = new Point(0, _headerHeight);
+            }
             Initialize();
         }
 
@@ -58,30 +64,6 @@ namespace avtoplanirovshik_start_exit
 
         private void ApplyLayout()
         {
-            if (_mainContainer == null) return;
-
-            // 1. Снимаем Dock, чтобы управлять позицией вручную
-            _mainContainer.Dock = DockStyle.None;
-
-            // 2. Сдвигаем контейнер ВНИЗ на высоту шапки
-            _mainContainer.Location = new Point(0, _headerHeight);
-
-            // 3. ГЛАВНЫЙ МОМЕНТ:
-            // Вычисляем высоту контейнера как: (Вся высота формы) - (Высота шапки)
-            // Мы НЕ вычитаем лишний пиксель (-1), если у формы нет рамок (FormBorderStyle.None).
-            // Если скроллбар все равно появляется, значит, у самого _mainContainer (например, TabControl)
-            // есть внутренние отступы (Padding).
-
-            int availableHeight = _form.ClientSize.Height - _headerHeight;
-
-            _mainContainer.Size = new Size(
-                _form.ClientSize.Width,
-                availableHeight
-            );
-
-            // 4. Закрепляем, чтобы при растягивании формы контейнер тянулся вместе с ней
-            _mainContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom |
-                                    AnchorStyles.Left | AnchorStyles.Right;
 
             // 5. Обновляем координаты кнопок (они зависят от ширины формы)
             UpdateButtonRects();

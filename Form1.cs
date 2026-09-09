@@ -64,7 +64,7 @@ namespace avtoplanirovshik_start_exit.git
         public Form1()
         {
             InitializeComponent();
-            _styler = new FormStyle(this, tabControl1);
+            _styler = new FormStyle(this);
         }
         private void Form1_Resize(object sender, EventArgs e)
         {
